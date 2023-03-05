@@ -1,4 +1,6 @@
 ﻿@using System.Text.Json;
+@using EfCoreDataAccessLayer.Models;
+@using WarehouseEngineBusinessLayer.Interfaces;
 @using WarehouseEngineBusinessLayer.ViewModels;
 @model PaginatedList<DetailViewModel>
 
@@ -54,7 +56,8 @@
                     @item.Price грн
                 </th>
                 <th>
-                    @item.SupplierId
+                    @{ var sup = await (ViewBag.supService as ICrudService<Supplier, SupplierViewModel>).GetByIdAsync(item.SupplierId); }
+                    @sup.Name
                 </th>
                 <td>
                     @Html.ActionLink("Редагувати", "Edit", new { id= item.Id }) |

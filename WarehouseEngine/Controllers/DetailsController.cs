@@ -27,7 +27,9 @@ namespace WarehouseEngine.Controllers
         public async Task<IActionResult> Index(string searchString, int? pageNumberParam)
         {
             ViewData["CurrentFilter"] = searchString;
+            
             var details = await _detailService.GetAllAsync();
+            ViewBag.supService = _supplierService;
 
             if (!String.IsNullOrEmpty(searchString))
             {
