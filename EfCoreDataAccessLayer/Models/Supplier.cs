@@ -14,6 +14,6 @@ namespace EfCoreDataAccessLayer.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public ICollection<Detail> Details { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

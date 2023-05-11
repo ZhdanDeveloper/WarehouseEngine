@@ -8,18 +8,18 @@ using WarehouseEngineBusinessLayer.ViewModels;
 
 namespace WarehouseEngine.Controllers
 {
-    public class DetailsController : Controller
+    public class ProductController : Controller
     {
-        private readonly ICrudService<Detail, DetailViewModel> _detailService;
+        private readonly ICrudService<Product, ProductViewModel> _productService;
         private readonly ICrudService<Supplier, SupplierViewModel> _supplierService;
         private readonly IExcelExportService _excelExportService;
-        const string exportAll = "AllDetailsExport";
-        const string exportPart = "PartDetailsExport";
+        const string exportAll = "AllProductExport";
+        const string exportPart = "PartProductExport";
         const string excelFormat = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-        public DetailsController(ICrudService<Detail, DetailViewModel> detailService, ICrudService<Supplier, SupplierViewModel> supplierService, IExcelExportService excelExportService)
+        public ProductController(ICrudService<Product, ProductViewModel> productService, ICrudService<Supplier, SupplierViewModel> supplierService, IExcelExportService excelExportService)
         {
-            _detailService = detailService;
+            _productService = productService;
             _supplierService = supplierService;
             _excelExportService = excelExportService;
         }
@@ -28,23 +28,23 @@ namespace WarehouseEngine.Controllers
         {
             ViewData["CurrentFilter"] = searchString;
             
-            var details = await _detailService.GetAllAsync();
+            var product = await _productService.GetAllAsync();
             ViewBag.supService = _supplierService;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                details = details.Where(d => d.Name.Contains(searchString));
+                product = product.Where(d => d.Name.Contains(searchString));
             }
 
             int pageSize = 10;
             int pageNumber = (pageNumberParam ?? 1);
 
-            return View(await PaginatedList<DetailViewModel>.CreateAsync(details, pageNumber, pageSize));
+            return View(await PaginatedList<ProductViewModel>.CreateAsync(product, pageNumber, pageSize));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var viewModel = await _detailService.GetByIdAsync(id);
+            var viewModel = await _productService.GetByIdAsync(id);
             ViewBag.Supplier = await _supplierService.GetByIdAsync(viewModel.SupplierId);
             return View(viewModel);
         }
@@ -56,11 +56,11 @@ namespace WarehouseEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DetailViewModel viewModel)
+        public async Task<IActionResult> Create(ProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                await _detailService.CreateAsync(viewModel);
+                await _productService.CreateAsync(viewModel);
                 return RedirectToAction("Index");
             }
             return View(viewModel);
@@ -68,7 +68,7 @@ namespace WarehouseEngine.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var viewModel = await _detailService.GetByIdAsync(id);
+            var viewModel = await _productService.GetByIdAsync(id);
             if (viewModel == null)
             {
                 return NotFound();
@@ -78,11 +78,11 @@ namespace WarehouseEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, DetailViewModel viewModel)
+        public async Task<IActionResult> Edit(int id, ProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                await _detailService.UpdateAsync(id, viewModel);
+                await _productService.UpdateAsync(id, viewModel);
                 return RedirectToAction("Index");
             }
             return View(viewModel);
@@ -90,7 +90,7 @@ namespace WarehouseEngine.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var viewModel = await _detailService.GetByIdAsync(id);
+            var viewModel = await _productService.GetByIdAsync(id);
             if (viewModel == null)
             {
                 return NotFound();
@@ -101,14 +101,14 @@ namespace WarehouseEngine.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _detailService.DeleteAsync(id);
+            await _productService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet, ActionName("ExcelExport")]
         public async Task<IActionResult> ExcelExport(string data)
         {
-            var entitiesForExport = JsonSerializer.Deserialize<IEnumerable<DetailViewModel>>(data);
+            var entitiesForExport = JsonSerializer.Deserialize<IEnumerable<ProductViewModel>>(data);
             var fileName = $"{exportPart}_{DateTime.UtcNow}.xlsx";
 
             var bytes = _excelExportService.ExportToExcel(entitiesForExport);
@@ -116,10 +116,10 @@ namespace WarehouseEngine.Controllers
             return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-        [HttpGet, ActionName("ExportAllSupplierData")]
+        [HttpGet, ActionName("ExportAllProductData")]
         public async Task<IActionResult> ExcelExportAllSupplierData(string data)
         {
-            var entitiesForExport = await _detailService.GetAllAsync();
+            var entitiesForExport = await _productService.GetAllAsync();
 
             var fileName = $"{exportAll}_{DateTime.UtcNow}.xlsx";
 

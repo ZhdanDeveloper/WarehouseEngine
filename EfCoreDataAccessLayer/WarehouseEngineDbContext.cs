@@ -10,7 +10,7 @@ namespace EfCoreDataAccessLayer
 {
     public class WarehouseEngineDbContext : DbContext
     {
-        public DbSet<Detail> Details { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
         public WarehouseEngineDbContext(DbContextOptions<WarehouseEngineDbContext> options) : base(options)
@@ -19,9 +19,9 @@ namespace EfCoreDataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Detail>()
+            modelBuilder.Entity<Product>()
                  .HasOne(d => d.Supplier)
-                 .WithMany(s => s.Details)
+                 .WithMany(s => s.Products)
                  .HasForeignKey(d => d.SupplierId);
         }
     }

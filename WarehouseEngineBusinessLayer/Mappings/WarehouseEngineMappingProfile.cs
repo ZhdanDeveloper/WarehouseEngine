@@ -13,7 +13,7 @@ namespace WarehouseEngineBusinessLayer.Mappings
     {
         public WarehouseEngineMappingProfile()
         {
-            CreateMap<Detail, DetailViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Supplier, SupplierViewModel>().ReverseMap();
         }
     }

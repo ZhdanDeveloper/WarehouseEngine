@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfCoreDataAccessLayer.Migrations
 {
     [DbContext(typeof(WarehouseEngineDbContext))]
-    [Migration("20230305213330_init")]
+    [Migration("20230511120347_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace EfCoreDataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EfCoreDataAccessLayer.Models.Detail", b =>
+            modelBuilder.Entity("EfCoreDataAccessLayer.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace EfCoreDataAccessLayer.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Details");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EfCoreDataAccessLayer.Models.Supplier", b =>
@@ -85,10 +85,10 @@ namespace EfCoreDataAccessLayer.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("EfCoreDataAccessLayer.Models.Detail", b =>
+            modelBuilder.Entity("EfCoreDataAccessLayer.Models.Product", b =>
                 {
                     b.HasOne("EfCoreDataAccessLayer.Models.Supplier", "Supplier")
-                        .WithMany("Details")
+                        .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -98,7 +98,7 @@ namespace EfCoreDataAccessLayer.Migrations
 
             modelBuilder.Entity("EfCoreDataAccessLayer.Models.Supplier", b =>
                 {
-                    b.Navigation("Details");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

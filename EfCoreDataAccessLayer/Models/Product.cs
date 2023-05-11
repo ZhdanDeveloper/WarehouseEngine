@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EfCoreDataAccessLayer.Models
 {
-    public class Detail : IDbEntity
+    public class Product : IDbEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

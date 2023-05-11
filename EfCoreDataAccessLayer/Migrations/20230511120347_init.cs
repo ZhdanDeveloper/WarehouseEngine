@@ -27,7 +27,7 @@ namespace EfCoreDataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Details",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,9 +40,9 @@ namespace EfCoreDataAccessLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Details", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Details_Suppliers_SupplierId",
+                        name: "FK_Products_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
@@ -50,8 +50,8 @@ namespace EfCoreDataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Details_SupplierId",
-                table: "Details",
+                name: "IX_Products_SupplierId",
+                table: "Products",
                 column: "SupplierId");
         }
 
@@ -59,7 +59,7 @@ namespace EfCoreDataAccessLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Details");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

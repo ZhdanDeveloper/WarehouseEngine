@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseEngineBusinessLayer.ViewModels
 {
-    public class DetailViewModel
+    public class ProductViewModel
     {
         public int? Id { get; set; }
 

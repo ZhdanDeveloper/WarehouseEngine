@@ -9,7 +9,7 @@ namespace SqlTableFillerTool
         public static void FillDatabaseWithData()
         {
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseEngineDbContext>();
-            optionsBuilder.UseSqlServer("Server=localhost\\MSSQLSERVER01;Database=WarehouseEngineDb;Trusted_Connection=True; TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\ProjectModels;Database=WarehouseEngineDb;Trusted_Connection=True; TrustServerCertificate=True;");
             using (WarehouseEngineDbContext dbContext = new WarehouseEngineDbContext(optionsBuilder.Options))
             {
 
@@ -17,9 +17,9 @@ namespace SqlTableFillerTool
                 var random = new Random();
 
                 // Generate 1000 random details
-                var details = Enumerable.Range(1, 1000).Select(i => new Detail
+                var details = Enumerable.Range(1, 1000).Select(i => new Product
                 {
-                    Name = $"Detail {i}",
+                    Name = $"Product {i}",
                     Price = random.Next(100, 1000),
                     SupplierId = random.Next(1, 100),
                     Description = $"DESC {i}",
@@ -36,13 +36,13 @@ namespace SqlTableFillerTool
                     
                 });
 
-               // foreach (var item in details) { Console.WriteLine(item.Name); }
+                foreach (var item in details) { Console.WriteLine(item.Name); }
                 foreach (var item in suppliers) { Console.WriteLine(item.Name); }
 
 
                 dbContext.Suppliers.AddRange(suppliers);
                 dbContext.SaveChanges();
-            //    dbContext.Details.AddRange(details);
+            //    dbContext.Products.AddRange(details);
             //    dbContext.SaveChanges();
             }
         }
