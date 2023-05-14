@@ -1,0 +1,35 @@
+﻿@page "/Clock"
+
+
+
+<ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="User">
+                                 <button class="nav-link btn btn-link px-3">Години у реальному часі @CurrentTime</button>
+                            </form>
+                        </li>
+ </ul>
+
+@code {
+    int currentCount = 0;
+    private string CurrentTime { get; set; }
+
+    protected override void OnInitialized()
+    {
+        UpdateTime();
+    }
+
+    private async void UpdateTime()
+    {
+        while (true)
+        {
+            CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+    }
+    void IncrementCount()
+    {
+        currentCount++;
+    }
+}

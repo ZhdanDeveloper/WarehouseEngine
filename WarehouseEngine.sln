@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseEngineBusinessLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCoreDataAccessLayer", "EfCoreDataAccessLayer\EfCoreDataAccessLayer.csproj", "{A747928C-620A-48B7-AC51-6C4087010E2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlTableFillerTool", "SqlTableFillerTool\SqlTableFillerTool.csproj", "{D52E797F-28EA-4E6D-B471-BEA489AF86F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlTableFillerTool", "SqlTableFillerTool\SqlTableFillerTool.csproj", "{D52E797F-28EA-4E6D-B471-BEA489AF86F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

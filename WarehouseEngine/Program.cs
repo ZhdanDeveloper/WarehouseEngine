@@ -17,9 +17,17 @@ namespace WarehouseEngine
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddServerSideBlazor();
             builder.Services.AddDbContext<WarehouseEngineDbContext>(options =>
+
+
             options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["ConnectionString"]));
+
+
             builder.Services.AddAutoMapper(typeof(WarehouseEngineMappingProfile));
+
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddScoped(typeof(ICrudService<,>), typeof(CrudService<,>));
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddTransient<IExcelExportService, ExcelExportService>();
@@ -54,7 +62,7 @@ namespace WarehouseEngine
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.MapBlazorHub();
             app.UseRouting();
 
             app.UseAuthorization();
