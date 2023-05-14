@@ -12,6 +12,7 @@ namespace EfCoreDataAccessLayer
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public WarehouseEngineDbContext(DbContextOptions<WarehouseEngineDbContext> options) : base(options)
         {

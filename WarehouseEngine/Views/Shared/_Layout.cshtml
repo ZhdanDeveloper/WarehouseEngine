@@ -28,6 +28,16 @@
                     </ul>
                 </div>
             </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="User">
+                                <button type="submit" class="nav-link btn btn-link px-3">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+            }
         </nav>
     </header>
     <div class="container">

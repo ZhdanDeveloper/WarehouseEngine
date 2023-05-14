@@ -1,4 +1,5 @@
 ﻿using EfCoreDataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using WarehouseEngine.Models;
@@ -8,6 +9,7 @@ using WarehouseEngineBusinessLayer.ViewModels;
 
 namespace WarehouseEngine.Controllers
 {
+    [Authorize]
     public class SupplierController : Controller
     {
         private readonly ICrudService<Supplier, SupplierViewModel> _supplierService;

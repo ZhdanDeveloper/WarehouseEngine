@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfCoreDataAccessLayer.Migrations
 {
     [DbContext(typeof(WarehouseEngineDbContext))]
-    [Migration("20230511120347_init")]
+    [Migration("20230511133235_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -83,6 +83,27 @@ namespace EfCoreDataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("EfCoreDataAccessLayer.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("EfCoreDataAccessLayer.Models.Product", b =>
